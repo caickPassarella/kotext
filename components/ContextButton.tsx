@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { View, Pressable, Text, StyleSheet } from "react-native";
 
 type ContextButtonProps = {
@@ -14,10 +13,10 @@ export const ContextButton = ({
   return (
     <View style={styles.container}>
       <Pressable
-        style={isPressed ? styles.pressedButton : styles.button}
+        style={[styles.button, isPressed && styles.pressedButton]}
         onPress={onPress}
       >
-        <Text style={isPressed ? styles.pressedText : styles.text}>
+        <Text style={[styles.text, isPressed && styles.pressedText]}>
           {title}
         </Text>
       </Pressable>
@@ -27,23 +26,19 @@ export const ContextButton = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 5,
+    flex: 1,
+    justifyContent: "space-between",
   },
   button: {
+    gap: 50,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 10,
-    paddingHorizontal: 20,
     backgroundColor: "#ffffff",
     borderRadius: 6,
   },
   pressedButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     backgroundColor: "#88AB75",
-    borderRadius: 6,
   },
   text: {
     color: "black",
@@ -52,7 +47,5 @@ const styles = StyleSheet.create({
   },
   pressedText: {
     color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

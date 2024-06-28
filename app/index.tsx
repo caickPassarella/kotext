@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { TextArea } from "@/components/TextArea";
 import { ContextButton } from "@/components/ContextButton";
+import { TranslateButton } from "@/components/TranslateButton";
 
 export default function Index() {
   const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -43,6 +44,9 @@ export default function Index() {
               isPressed={activeButton === "informal"}
             />
           </View>
+          <View style={styles.translateButtonWrapper}>
+            <TranslateButton />
+          </View>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -52,13 +56,17 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 25,
     alignContent: "center",
   },
   buttons: {
     flexDirection: "row",
     paddingTop: 10,
     alignContent: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    gap: 10,
+  },
+  translateButtonWrapper: {
+    marginTop: 20,
   },
 });
