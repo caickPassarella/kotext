@@ -6,22 +6,30 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 import { TextArea } from "@/components/TextArea";
 import { ContextButton } from "@/components/ContextButton";
-import { TranslateButton } from "@/components/TranslateButton";
+import { IconButton } from "@/components/IconButton";
 
 export default function Index() {
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [activeButton, setActiveButton] = useState<string>("neutral");
 
   const handlePress = (title: string) => {
     setActiveButton(title);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
-          <TextArea />
+          <View style={styles.inputSectionWrapper}>
+            <TextArea />
+            <View style={styles.iconButtonWrapper}>
+              <IconButton name="eraser" size={28} color={"#686868"} />
+              <IconButton name="copy" size={28} color={"#686868"} />
+            </View>
+          </View>
           <View style={styles.buttons}>
             <ContextButton
               title="Keigo"
@@ -45,7 +53,7 @@ export default function Index() {
             />
           </View>
           <View style={styles.translateButtonWrapper}>
-            <TranslateButton />
+            <IconButton name="arrow-circle-right" size={45} color={"#88AB75"} />
           </View>
         </View>
       </SafeAreaView>
@@ -66,7 +74,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 10,
   },
+  inputSectionWrapper: {
+    flexDirection: "row",
+    gap: 10,
+  },
   translateButtonWrapper: {
     marginTop: 20,
+  },
+  iconButtonWrapper: {
+    flexDirection: "column",
+    justifyContent: "space-around",
   },
 });
