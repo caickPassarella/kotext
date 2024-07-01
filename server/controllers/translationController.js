@@ -9,14 +9,25 @@ exports.translate = async (req, res) => {
   });
 
   try {
-    let prompt = generatePrompt(text, context);
+    const prompt = generatePrompt(text, context);
+    const systemPrompt =
+      'You only respond in JSON. The Japanese translation must be in a key called "Japanese". Only reply with the translation, do not return in your response the original text or any other key besides the translation';
 
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: prompt }],
-      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: prompt },
+      ],
+      model: "gpt-4o",
       response_format: { type: "json_object" },
+      seed: 0,
+      temperature: 0.2,
     });
-    console.log(completion.choices[0].message.content);
+    console.log(completion);
+    const jsonResponse = JSON.parse(completion.choices[0].message.content);
+    jsonResponse.English = text;
+    jsonResponse.context = context;
+    console.log(jsonResponse);
   } catch (error) {
     console.log(error);
   }
@@ -25,12 +36,8 @@ exports.translate = async (req, res) => {
 const generatePrompt = (text, context) => {
   switch (context) {
     case "keigo":
-      return `Translate the following English text into Japanese using Keigo: ${text}`;
-    case "formal":
-      return `Translate the following English text into formal Japanese: ${text}`;
-    case "informal":
-      return `Translate the following English text into informal Japanese: ${text}`;
+      return `Translate the following English text into Japanese using keigo: ${text}`;
     default:
-      return `Translate the following English text into neutral Japanese: ${text}`;
+      return `Translate the following English text into ${context} Japanese: ${text}`;
   }
 };

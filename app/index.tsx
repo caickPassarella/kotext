@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
-import * as Haptics from "expo-haptics";
 import { TextArea } from "@/components/TextArea";
 import { ContextButton } from "@/components/ContextButton";
 import { IconButton } from "@/components/IconButton";
@@ -16,7 +15,6 @@ export default function Index() {
 
   const handlePress = (title: string) => {
     setActiveButton(title);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
   return (
