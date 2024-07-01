@@ -12,9 +12,14 @@ import { IconButton } from "@/components/IconButton";
 
 export default function Index() {
   const [activeButton, setActiveButton] = useState<string>("neutral");
+  const [text, setText] = useState("");
 
   const handlePress = (title: string) => {
     setActiveButton(title);
+  };
+
+  const handleDelete = () => {
+    setText("");
   };
 
   return (
@@ -22,9 +27,14 @@ export default function Index() {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
           <View style={styles.inputSectionWrapper}>
-            <TextArea />
+            <TextArea text={text} setText={setText} />
             <View style={styles.iconButtonWrapper}>
-              <IconButton name="eraser" size={28} color={"#686868"} />
+              <IconButton
+                name="eraser"
+                size={28}
+                color={"#686868"}
+                onPress={handleDelete}
+              />
               <IconButton name="copy" size={28} color={"#686868"} />
             </View>
           </View>

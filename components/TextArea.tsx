@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-export const TextArea = () => {
-  const [text, setText] = useState("");
+type TextAreaProps = {
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const TextArea = ({ text, setText }: TextAreaProps) => {
   return (
     <TextInput
       style={styles.input}

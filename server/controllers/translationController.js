@@ -11,7 +11,7 @@ exports.translate = async (req, res) => {
   try {
     const prompt = generatePrompt(text, context);
     const systemPrompt =
-      'You only respond in JSON. The Japanese translation must be in a key called "Japanese". Only reply with the translation, do not return in your response the original text or any other key besides the translation';
+      'You only respond in JSON. The Japanese translation must be in a key called "Japanese". Only reply with the translation, do not return in your response the original text or any other key or value besides the translation';
 
     const completion = await openai.chat.completions.create({
       messages: [
@@ -23,13 +23,15 @@ exports.translate = async (req, res) => {
       seed: 0,
       temperature: 0.2,
     });
-    console.log(completion);
-    const jsonResponse = JSON.parse(completion.choices[0].message.content);
-    jsonResponse.English = text;
-    jsonResponse.context = context;
-    console.log(jsonResponse);
+    const translation = JSON.parse(completion.choices[0].message.content);
+    translation.English = text;
+    translation.context = context;
+    res.json({ success: true, translation });
   } catch (error) {
-    console.log(error);
+    console.log("Translation error: ", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to translate the text." });
   }
 };
 
