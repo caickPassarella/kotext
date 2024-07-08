@@ -5,7 +5,7 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen
         name="index"
-        options={{ headerShown: true, title: "Kotext" }}
+        options={{ headerShown: false, title: "Kotext" }}
       />
     </Stack>
   );

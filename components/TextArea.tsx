@@ -1,19 +1,20 @@
-import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 type TextAreaProps = {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
+  fontSize: number;
 };
 
-export const TextArea = ({ text, setText }: TextAreaProps) => {
+export const TextArea = ({ text, setText, fontSize }: TextAreaProps) => {
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, { fontSize }]}
       onChangeText={setText}
       value={text}
       placeholder="Text to be translated"
       multiline
+      placeholderTextColor={"#8e8e8e"}
       blurOnSubmit={true}
     />
   );
@@ -21,13 +22,8 @@ export const TextArea = ({ text, setText }: TextAreaProps) => {
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
     maxHeight: 200,
-    minHeight: 100,
-    fontSize: 22,
+    minHeight: 50,
     fontWeight: "400",
   },
 });

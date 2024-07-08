@@ -27,18 +27,15 @@ export const ContextButton = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
   },
   button: {
-    gap: 50,
     alignItems: "center",
-    justifyContent: "center",
     paddingVertical: 10,
     backgroundColor: "#ffffff",
     borderRadius: 6,
   },
   pressedButton: {
-    backgroundColor: "#88AB75",
+    backgroundColor: "#4D8B6A",
   },
   text: {
     color: "black",
